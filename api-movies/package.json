@@ -1,0 +1,22 @@
+{
+  "name": "api-movies",
+  "version": "1.0.0",
+  "description": "An API with Express and MongoDB to have movies data",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.9.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
