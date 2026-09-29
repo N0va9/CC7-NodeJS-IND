@@ -1,8 +1,10 @@
+const AppError = require("../errors/AppError");
 const makeCrudController = ({ repository, resourceName = 'resource'}) => ({
     async create(req, res, next) {
         try {
             const item = await repository.create(req.body);
-            res.status(201).json(item)
+
+            res.status(201).json(item);
         } catch(err) {
             next(err);
         }
@@ -23,9 +25,13 @@ const makeCrudController = ({ repository, resourceName = 'resource'}) => ({
         try {
             const item = await repository.findById(req.params.id);
             if (!item) {
-                return res.status(404).json({ message : `${resourceName} not found`});
+                throw new AppError(
+                    404,
+                    `${resourceName.toUpperCase()}_NOT_FOUND`,
+                    `${resourceName} not found`
+                );
             }
-            res.json(item);
+            res.status(200).json(item);
         } catch(err) {
             next(err);
         }
@@ -35,9 +41,13 @@ const makeCrudController = ({ repository, resourceName = 'resource'}) => ({
         try {
             const item = await repository.update(req.params.id, req.body);
             if (!item) {
-                return res.status(404).json({ message : `${resourceName} not found`});
+                throw new AppError(
+                    404,
+                    `${resourceName.toUpperCase()}_NOT_FOUND`,
+                    `${resourceName} not found`
+                );
             }
-            res.json(item);
+            res.status(200).json(item);
         } catch(err) {
             next(err);
         }
@@ -48,9 +58,13 @@ const makeCrudController = ({ repository, resourceName = 'resource'}) => ({
         try {
             const item = await repository.delete(req.params.id);
             if (!item) {
-                return res.status(404).json({ message : `${resourceName} not found`});
+                throw new AppError(
+                    404,
+                    `${resourceName.toUpperCase()}_NOT_FOUND`,
+                    `${resourceName} not found`
+                );
             }
-            res.status(204).send();
+            res.sendStatus(204);
         } catch(err) {
             next(err);
         }

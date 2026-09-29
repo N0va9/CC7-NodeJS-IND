@@ -1,0 +1,617 @@
+openapi: 3.0.3
+
+info:
+  title: Movies API
+  version: 1.0.0
+  description: API documentation using Swagger for movies API
+  
+tags:
+  - name: Artists
+    description: Artists management
+
+  - name: Countries
+    description: Countries management
+
+  - name: Movies
+    description: Movies management
+  
+  - name: Netizens
+    description: Netizens management
+
+  
+# ARTISTS
+paths:
+  /api-movies/artists:
+    get: 
+      tags:
+        - Artists
+      summary: Retrieve all artists
+      operationId: getArtists
+      responses: 
+        "200":
+          description: All artists has been retrived  
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Artist"
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    post: 
+      tags:
+        - Artists
+      summary: Create an artist
+      operationId: createArtist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/CreateArtistInput"
+      responses: 
+        "201":
+          description: The artist has been created  
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Artist"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+  /api-movies/artists/{id}:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+
+    get: 
+      tags:
+      - Artists
+      summary: Get an artist by his ID
+      operationId: getArtistById
+      responses: 
+        "200":
+          description: The artist was found   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Artist"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    patch: 
+      tags: 
+        - Artists
+      summary: Update an artist 
+      operationId: updateArtist
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/UpdateArtistInput"
+      responses: 
+        "200":
+          description: Artist updated   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Artist"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+    delete: 
+      tags: 
+        - Artists
+      summary: Delete an artist 
+      operationId: deleteArtist
+      responses: 
+        "204":
+          description: Artist deleted   
+
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+# COUNTRIES
+  /api-movies/countries:
+    get: 
+      tags:
+        - Countries
+      summary: Retrieve all countries
+      operationId: getCountries
+      responses: 
+        "200":
+          description: All countries has been retrived  
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Country"
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    post: 
+      tags:
+        - Countries
+      summary: Create  a country
+      operationId: createCountry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/CreateCountryInput"
+      responses: 
+        "201":
+          description: The country has been created  
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Country"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+  /api-movies/countries/{id}:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+
+    get: 
+      tags:
+      - Countries
+      summary: Get  a country by his ID
+      operationId: getCountryById
+      responses: 
+        "200":
+          description: The country was found   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Country"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    patch: 
+      tags: 
+        - Countries
+      summary: Update a country 
+      operationId: updateCountry
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/UpdateCountryInput"
+      responses: 
+        "200":
+          description: Country updated   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Country"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+    delete: 
+      tags: 
+        - Countries
+      summary: Delete a country 
+      operationId: deleteCountry
+      responses: 
+        "204":
+          description: Country deleted   
+
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+# MOVIES
+  /api-movies/movies:
+    get: 
+      tags:
+        - Movies
+      summary: Retrieve all movies
+      operationId: getMovies
+      responses: 
+        "200":
+          description: All movies has been retrived  
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Movie"
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    post: 
+      tags:
+        - Movies
+      summary: Create a movie
+      operationId: createMovie
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/CreateMovieInput"
+      responses: 
+        "201":
+          description: The movie has been created  
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movie"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+  /api-movies/movies/{id}:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+
+    get: 
+      tags:
+      - Movies
+      summary: Get a movie by his ID
+      operationId: getMovieById
+      responses: 
+        "200":
+          description: The movie was found   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movie"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    patch: 
+      tags: 
+        - Movies
+      summary: Update a movie 
+      operationId: updateMovie
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/UpdateMovieInput"
+      responses: 
+        "200":
+          description: Movie updated   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movie"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+    delete: 
+      tags: 
+        - Movies
+      summary: Delete a movie 
+      operationId: deleteMovie
+      responses: 
+        "204":
+          description: Movie deleted   
+
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+# NETIZENS
+  /api-movies/netizens:
+    get: 
+      tags:
+        - Netizens
+      summary: Retrieve all netizens
+      operationId: getNetizens
+      responses: 
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Netizen"
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    post: 
+      tags:
+        - Netizens
+      summary: Create  a netizen
+      operationId: createNetizen
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/CreateNetizenInput"
+      responses: 
+        "201":
+          description: The netizen has been created  
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Netizen"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+  /api-movies/netizens/{id}:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+
+    get: 
+      tags:
+      - Netizens
+      summary: Get  a netizen by his ID
+      operationId: getNetizenById
+      responses: 
+        "200":
+          description: The netizen was found   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Netizen"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    patch: 
+      tags: 
+        - Netizens
+      summary: Update  a netizen 
+      operationId: updateNetizen
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/UpdateNetizenInput"
+      responses: 
+        "200":
+          description: Netizen updated   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Netizen"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+    delete: 
+      tags: 
+        - Netizens
+      summary: Delete  a netizen 
+      operationId: deleteNetizen
+      responses: 
+        "204":
+          description: Netizen deleted   
+
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+  
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: MongoDB Resource ID
+      schema:
+        type: string
+        example: "6abbd336832a9500aba377e2"
+  schemas:
+    CreateArtistInput:
+      type: object
+      required:
+        - firstName
+        - lastName 
+        - birthYear
+      properties:
+        firstName:
+          type: string
+          minLength: 2
+          example: "James"
+        lastName:
+          type: string
+          minLength: 2
+          example: "Cameron"
+        birthYear:
+          type: Number
+          minLength: 2
+          example: 1954
+      
+    UpdateArtistInput:
+      type: object
+      required:
+        - firstName
+        - lastName 
+        - birthYear
+      properties:
+        firstName:
+          type: string
+          minLength: 2
+          example: "James"
+        lastName:
+          type: string
+          minLength: 2
+          example: "Cameron"
+        birthYear:
+          type: Number
+          minLength: 2
+          example: 1954
+    
+    Error:
+      type: object
+      required:
+        - status
+        - code
+        - message
+      properties:
+        status:
+          type: integer
+          example: 404
+        
+        code:
+          string: string
+          example: RESOURCE_NOT_FOUND
+
+        message:
+          type: string
+          example: Resource not found
+  
+  responses:
+    BadRequest:
+      description: Invalid request
+      content: 
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+          example: 
+            status: 400
+            code: VALIDATION_ERROR
+            message: Invalid data
+
+    ResourceNotFound:
+      description: Resource not found
+      content: 
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+          example: 
+            status: 404
+            code: RESOURCE_NOT_FOUND
+            message: Resource not found
+
+    Conflict:
+      description: Invalid request
+      content: 
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+          example: 
+            status: 409
+            code: DUPLICATE_KEY
+            message: Resource with same value already exists
+    
+    InternalServerError:
+      description: Internal server error
+      content: 
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+          example: 
+            status: 500
+            code: INTERNAL_ERROR
+            message: Internal server error
+

@@ -28,3 +28,5 @@ npm start
 
 
 morgan nodemon  ejs body-parser dotenv mongoose axios
+express swagger-ui-express swagger-jsdoc
+mongoose-to-swagger
