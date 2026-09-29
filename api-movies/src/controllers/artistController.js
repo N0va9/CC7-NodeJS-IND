@@ -4,7 +4,7 @@ const artistRepository = require('../repositories/artistRepository');
 
 const artistController = makeCrudController({
     repository: artistRepository,
-    resourceName: 'Artist',
+    resourceName: 'Artist'
 })
 
 module.exports = artistController;

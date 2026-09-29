@@ -4,7 +4,7 @@ const netizenRepository = require('../repositories/netizenRepository');
 
 const netizenController = makeCrudController({
     repository: netizenRepository,
-    resourceName: 'Netizen',
+    resourceName: 'Netizen'
 })
 
 module.exports = netizenController;

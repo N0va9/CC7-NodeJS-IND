@@ -4,7 +4,7 @@ const countryRepository = require('../repositories/countryRepository');
 
 const countryController = makeCrudController({
     repository: countryRepository,
-    resourceName: 'Country',
+    resourceName: 'Country'
 })
 
 module.exports = countryController;

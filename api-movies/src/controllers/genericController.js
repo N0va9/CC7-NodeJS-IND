@@ -1,4 +1,4 @@
-const makeCrudController = ({ repository, resourceName = 'resource'}) = ({
+const makeCrudController = ({ repository, resourceName = 'resource'}) => ({
     async create(req, res, next) {
         try {
             const item = await repository.create(req.body);

@@ -4,7 +4,7 @@ const movieRepository = require('../repositories/movieRepository');
 
 const movieController = makeCrudController({
     repository: movieRepository,
-    resourceName: 'Movie',
+    resourceName: 'Movie'
 })
 
 module.exports = movieController;

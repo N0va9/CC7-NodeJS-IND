@@ -17,9 +17,9 @@ npm i --save-dev nodemon
 `nodemon` : Redémarre le serveur lorsqu'on modifie un fichier
  
 
-# Pour lancer le serveur
+# Pour lancer le projet depuis la racine (api-movies)
 ```bash=
-node server.js
+npm start
 ```
 
 
