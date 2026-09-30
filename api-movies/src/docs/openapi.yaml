@@ -507,6 +507,7 @@ components:
         type: string
         example: "6abbd336832a9500aba377e2"
   schemas:
+# ARTISTS
     CreateArtistInput:
       type: object
       required:
@@ -524,7 +525,7 @@ components:
           example: "Cameron"
         birthYear:
           type: Number
-          minLength: 2
+          minLength: 4
           example: 1954
       
     UpdateArtistInput:
@@ -544,9 +545,162 @@ components:
           example: "Cameron"
         birthYear:
           type: Number
-          minLength: 2
+          minLength: 4
           example: 1954
     
+# COUNTRIES
+    CreateCountryInput:
+      type: object
+      required:
+        - name
+        - language 
+      properties:
+        name:
+          type: string
+          minLength: 2
+          example: "Paris"
+        language:
+          type: string
+          minLength: 2
+          example: "French"
+
+      
+    UpdateCountryInput:
+      type: object
+      required:
+        - name
+        - language 
+      properties:
+        name:
+          type: string
+          minLength: 2
+          example: "Paris"
+        language:
+          type: string
+          minLength: 2
+          example: "French"
+    
+# MOVIES
+    CreateMovieInput:
+      type: object
+      required:
+        - title
+        - year 
+        - genre
+        - resume
+      properties:
+        title:
+          type: string
+          minLength: 2
+          example: "The Dark Knight"
+        year:
+          type: Number
+          minLength: 4 
+          example: 2008
+        genre:
+          type: string
+          minLength: 2
+          example: "Action, Crime, Drama"
+        resume:
+          type: string
+          minLength: 2
+          example: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice."
+
+      
+    UpdateMovieInput:
+      type: object
+      required:
+        - title
+        - year 
+        - genre
+        - resume
+      properties:
+        title:
+          type: string
+          minLength: 2
+          example: "The Dark Knight"
+        year:
+          type: Number
+          minLength: 4 
+          example: 2008
+        genre:
+          type: string
+          minLength: 2
+          example: "Action, Crime, Drama"
+        resume:
+          type: string
+          minLength: 2
+          example: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice."
+
+
+# NETIZENS
+    CreateNetizenInput:
+      type: object
+      required:
+        - email
+        - firstName
+        - lastName 
+        - password
+        - birthYear
+      properties:
+        email:
+          type: string
+          format: email
+          example: "brucewilis@gmail.com"
+        firstName:
+          type: string
+          minLength: 2
+          example: "Bruce"
+        lastName:
+          type: string
+          minLength: 2
+          example: "Willis"
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 128
+          description: Password with at least 8 characters.
+          example: "exempleDeMotDePasse"
+        birthYear:
+          type: Number
+          minLength: 2
+          example: 1955
+      
+    UpdateNetizenInput:
+      type: object
+      required:
+        - email
+        - firstName
+        - lastName 
+        - password
+        - birthYear
+      properties:
+        email:
+          type: string
+          format: email
+          example: "brucewilis@gmail.com"
+        firstName:
+          type: string
+          minLength: 2
+          example: "Bruce"
+        lastName:
+          type: string
+          minLength: 2
+          example: "Willis"
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 128
+          description: Password with at least 8 characters.
+          example: "exempleDeMotDePasse"
+        birthYear:
+          type: Number
+          minLength: 2
+          example: 1955
+
+
     Error:
       type: object
       required:

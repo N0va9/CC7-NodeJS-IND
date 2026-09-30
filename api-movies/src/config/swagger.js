@@ -25,7 +25,7 @@ const schemas = Object.fromEntries( // TODO Netizen password? ou 2 représentati
     Object.entries(models).map(([name, model]) => [
         name, 
         mongooseToSwagger(model, {
-            omitFields: ["__v", "createdAt", "updatedAt", "password"], // Retire les champs s'ils existent
+            omitFields: ["__v", "createdAt", "updatedAt", "password", "role"], // Retire les champs s'ils existent
         }),
     ]),
 );
