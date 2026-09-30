@@ -524,8 +524,10 @@ components:
           minLength: 2
           example: "Cameron"
         birthYear:
-          type: Number
-          minLength: 4
+          type: integer
+          format: int32
+          minimum: 1900
+          maximum: 2100
           example: 1954
       
     UpdateArtistInput:
@@ -544,8 +546,10 @@ components:
           minLength: 2
           example: "Cameron"
         birthYear:
-          type: Number
-          minLength: 4
+          type: integer
+          format: int32
+          minimum: 1900
+          maximum: 2100
           example: 1954
     
 # COUNTRIES
@@ -594,8 +598,10 @@ components:
           minLength: 2
           example: "The Dark Knight"
         year:
-          type: Number
-          minLength: 4 
+          type: integer
+          format: int32
+          minimum: 1900
+          maximum: 2100
           example: 2008
         genre:
           type: string
@@ -620,8 +626,10 @@ components:
           minLength: 2
           example: "The Dark Knight"
         year:
-          type: Number
-          minLength: 4 
+          type: integer
+          format: int32
+          minimum: 1900
+          maximum: 2100
           example: 2008
         genre:
           type: string
@@ -663,9 +671,11 @@ components:
           description: Password with at least 8 characters.
           example: "exempleDeMotDePasse"
         birthYear:
-          type: Number
-          minLength: 2
-          example: 1955
+          type: integer
+          format: int32
+          minimum: 1900
+          maximum: 2100
+          example: 1954
       
     UpdateNetizenInput:
       type: object
@@ -696,9 +706,11 @@ components:
           description: Password with at least 8 characters.
           example: "exempleDeMotDePasse"
         birthYear:
-          type: Number
-          minLength: 2
-          example: 1955
+          type: integer
+          format: int32
+          minimum: 1900
+          maximum: 2100
+          example: 1954
 
 
     Error:
