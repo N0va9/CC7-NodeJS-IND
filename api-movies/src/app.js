@@ -29,6 +29,12 @@ app.use(express.json());
 // En Express, on l'écrit ainsi :id
 // Tout ce qu'on remplace par :id dans l'URL devient disponible en tant que req.params.id dans notre gestionnaire de routes.
 
+
+const jwt = require('jsonwebtoken')
+
+
+
+
 // Branchement des routers
 app.use("/api-movies/artists", artistRouter);
 app.use("/api-movies/countries", countryRouter);

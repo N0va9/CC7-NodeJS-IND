@@ -3,8 +3,12 @@ const makeCrudController = ({ repository, resourceName = 'resource'}) => ({
     async create(req, res, next) {
         try {
             const item = await repository.create(req.body);
+            let entityName = item.name || item.title || item.firstName + ' ' + item.lastName;
 
-            res.status(201).json(item);
+            res.status(201).json({
+                message: `The ${resourceName.toLowerCase()} ${entityName} has been created`,
+                
+            });
         } catch(err) {
             next(err);
         }

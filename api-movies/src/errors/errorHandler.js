@@ -7,21 +7,21 @@ function errorHandler(err, req, res, next) {
     if (err.name == "CastError") {
         status = 400;
         code = "INVALID_ID";
-        message = "Invalid ID"
+        message = err.message ?? "Invalid ID"
     }
 
     // Erreur Mongoose, erreur de schéma
     if (err.name == "ValidationError") {
         status = 400;
         code = "VALIDATION_ERROR";
-        message = "Invalid data"
+        message = err.message ?? "Invalid data"
     }
 
     // Erreur MongoDB avec valeur unique déjà existante
     if (err.code == 11000) {
         status = 409;
         code = "DUPLICATE_KEY";
-        message = "The key already exists";
+        message = "The key already exists for this ressource";
     }
 
     res.status(status).json({
