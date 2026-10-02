@@ -6,11 +6,11 @@ const app = require("./app")
 const mongoose = require('mongoose');
 
 // Variables d'environnement
-const MONGO_URI = process.env.MONGO_URI;
+const MONGODB_URI = process.env.MONGODB_URI;
 const PORT = process.env.PORT;
 
 mongoose
-    .connect(MONGO_URI)
+    .connect(MONGODB_URI)
     .then(() => {
         console.log("MongoDB connected");
         app.listen(PORT, () => {

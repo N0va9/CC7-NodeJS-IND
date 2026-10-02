@@ -9,9 +9,13 @@ const netizenSchema = new mongoose.Schema (
         // TODO encryptage du mdp (bcrypt)
         birthYear: { // On définit les limites concernant l'année de naissance
             type: Number,
-            min: 1900,
-            max: new Date().getFullYear(), // Année courante
-            required: true
+            min: 1800,
+            max: 2100,
+            required: true,
+            validate: {
+                validator: Number.isInteger,
+                message: 'birthYear must be an integer.' // Nous forçons ici un nombre entier
+            }
         },
         role : { type: String, enum:['user', 'admin'], default: 'user' },
 

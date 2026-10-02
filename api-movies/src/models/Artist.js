@@ -7,9 +7,13 @@ const artistSchema = new mongoose.Schema (
         lastName : { type: String, required: true },
         birthYear: { // On définit les limites concernant l'année de naissance
             type: Number,
-            min: 1900,
-            max: new Date().getFullYear(), // Année courante
-            required: true
+            min: 1800,
+            max: 2100,
+            required: true,
+            validate: {
+                validator: Number.isInteger,
+                message: 'birthYear must be an integer.' // Nous forçons ici un nombre entier
+            }
         },
     },
     { timestamps: true } // Created at and updated at

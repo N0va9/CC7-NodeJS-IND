@@ -30,3 +30,5 @@ npm start
 morgan nodemon  ejs body-parser dotenv mongoose axios
 express swagger-ui-express swagger-jsdoc
 mongoose-to-swagger
+
+Utilisation de l'API RestCountries pour récupérer les codes, langues et pays dans le monde
