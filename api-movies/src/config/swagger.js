@@ -11,6 +11,7 @@ const Artist = require("../models/Artist");
 const Country = require("../models/Country");
 const Movie = require("../models/Movie");
 const Netizen = require("../models/Netizen");
+const Mark = require("../models/Mark");
 
 // __v : champ de version interne à Mongoose -> pas nécessaire ici
 
@@ -18,7 +19,8 @@ const models = {
     Artist, 
     Country, 
     Movie,
-    Netizen
+    Netizen,
+    Mark
 }
 
 const schemas = Object.fromEntries( // TODO Netizen password? ou 2 représentations (une publique et une privée)

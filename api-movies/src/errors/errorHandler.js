@@ -21,7 +21,16 @@ function errorHandler(err, req, res, next) {
     if (err.code == 11000) {
         status = 409;
         code = "DUPLICATE_KEY";
-        message = "The key already exists for this ressource";
+        if (err?.keyPattern?.email === 1 && 
+            err?.keyPattern?.movieId === 1 &&
+            Object.keys(err.keyPattern).length === 2
+        ){ // Problème d'unicité pour la notation d'un film
+            message = "This netizen has already rated this film";
+        }
+        else {
+            message = "The key already exists for this ressource";
+        }
+
     }
 
     res.status(status).json({

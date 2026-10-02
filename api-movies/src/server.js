@@ -19,6 +19,7 @@ mongoose
                 console.log(`The server is running at http://localhost:${PORT}/api-movies/countries`);
                 console.log(`The server is running at http://localhost:${PORT}/api-movies/movies`);
                 console.log(`The server is running at http://localhost:${PORT}/api-movies/netizens`);
+                console.log(`The server is running at http://localhost:${PORT}/api-movies/marks`);
         });
     })
     .catch(err => {

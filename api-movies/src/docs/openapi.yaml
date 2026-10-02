@@ -451,7 +451,7 @@ paths:
     patch: 
       tags: 
         - Netizens
-      summary: Update  a netizen 
+      summary: Update a netizen 
       operationId: updateNetizen
       requestBody:
         required: true
@@ -481,7 +481,7 @@ paths:
     delete: 
       tags: 
         - Netizens
-      summary: Delete  a netizen 
+      summary: Delete a netizen 
       operationId: deleteNetizen
       responses: 
         "204":
@@ -496,6 +496,126 @@ paths:
         "500": 
           $ref: "#/components/responses/InternalServerError"
   
+# MARK
+  /api-movies/marks:
+    get: 
+      tags:
+        - Marks
+      summary: Retrieve all marks
+      operationId: getMarks
+      responses: 
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Mark"
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    post: 
+      tags:
+        - Marks
+      summary: Create a mark
+      operationId: createMark
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/CreateMarkInput"
+      responses: 
+        "201":
+          description: The mark has been created  
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mark"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+  /api-movies/marks/{id}:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+
+    get: 
+      tags:
+      - Marks
+      summary: Get a mark by his ID
+      operationId: getMarkById
+      responses: 
+        "200":
+          description: The mark was found   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mark"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    patch: 
+      tags: 
+        - Marks
+      summary: Update a mark 
+      operationId: updateMark
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/UpdateMarkInput"
+      responses: 
+        "200":
+          description: Mark updated   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mark"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+    delete: 
+      tags: 
+        - Marks
+      summary: Delete a mark 
+      operationId: deleteMark
+      responses: 
+        "204":
+          description: Mark deleted   
+
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+
 components:
   parameters:
     Id:
@@ -737,6 +857,48 @@ components:
           maximum: 2100
           example: 1954
 
+# Mark
+    CreateMarkInput:
+      type: object
+      required:
+        - email
+        - movieId
+        - mark
+      properties:
+        email:
+          type: string
+          format: email
+          example: "brucewilis@gmail.com"
+        movieId:
+          description: Movie ID
+          type: string
+          example: "6abf9cc61fea465d82e005b8"
+        mark:
+          type: Number
+          minimum: 0
+          maximum: 20
+          example: 15
+
+    UpdateMarkInput:
+      type: object
+      required:
+        - email
+        - movieId
+        - mark
+      properties:
+        email:
+          type: string
+          format: email
+          example: "brucewilis@gmail.com"
+        movieId:
+          description: Movie ID
+          type: string
+          example: "6abf9cc61fea465d82e005b8"
+        mark:
+          type: Number
+          minimum: 0
+          maximum: 20
+          example: 15
 
     Error:
       type: object
