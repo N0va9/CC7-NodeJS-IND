@@ -4,13 +4,17 @@ const makeCrudController = ({ repository, resourceName = 'resource'}) => ({
         try {
             const item = await repository.create(req.body);
             let entityName = item.name || item.title ||item.firstName + ' ' + item.lastName;
-            
+            let endString = '';
             if (resourceName == "Mark") {
-                entityName='for '+ item.email
+                entityName= 'for '+ item.email;
+            }
+            if (resourceName == "Role") {
+                entityName= item.role;
+                endString = " for the given artist and movie"
             }
 
             res.status(201).json({
-                message: `The ${resourceName.toLowerCase()} ${entityName} has been created`,
+                message: `The ${resourceName.toLowerCase()} ${entityName} has been created${endString}`,
                 
             });
         } catch(err) {

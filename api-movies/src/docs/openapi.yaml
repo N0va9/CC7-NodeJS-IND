@@ -615,6 +615,127 @@ paths:
         "500": 
           $ref: "#/components/responses/InternalServerError"
 
+# ROLE
+  /api-movies/roles:
+    get: 
+      tags:
+        - Roles
+      summary: Retrieve all roles
+      operationId: getRoles
+      responses: 
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Role"
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    post: 
+      tags:
+        - Roles
+      summary: Create a role
+      operationId: createRole
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/CreateRoleInput"
+      responses: 
+        "201":
+          description: The role has been created  
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+  /api-movies/roles/{id}:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+
+    get: 
+      tags:
+      - Roles
+      summary: Get a role by his ID
+      operationId: getRoleById
+      responses: 
+        "200":
+          description: The role was found   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    patch: 
+      tags: 
+        - Roles
+      summary: Update a role 
+      operationId: updateRole
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/UpdateRoleInput"
+      responses: 
+        "200":
+          description: Role updated   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Role"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+    delete: 
+      tags: 
+        - Roles
+      summary: Delete a role 
+      operationId: deleteRole
+      responses: 
+        "204":
+          description: Role deleted   
+
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+
+
 
 components:
   parameters:
@@ -899,6 +1020,47 @@ components:
           minimum: 0
           maximum: 20
           example: 15
+
+# Role
+    CreateRoleInput:
+      type: object
+      required:
+        - artistId
+        - movieId
+        - role
+      properties:
+        artistId:
+          description: Artist ID
+          type: string
+          example: "6ac0c32758a0e073465040e9"
+        movieId:
+          description: Movie ID
+          type: string
+          example: "6abf9cc61fea465d82e005b8"
+        role:
+          description: Role of the artist for this movie
+          type: string
+          example: "Actor"
+
+    UpdateRoleInput:
+      type: object
+      required:
+        - artistId
+        - movieId
+        - role
+      properties:
+        artistId:
+          description: Artist ID
+          type: string
+          example: "6ac0c32758a0e073465040e9"
+        movieId:
+          description: Movie ID
+          type: string
+          example: "6abf9cc61fea465d82e005b8"
+        role:
+          description: Role of the artist for this movie
+          type: string
+          example: "Actor"
 
     Error:
       type: object

@@ -10,6 +10,7 @@ const countryRouter = require('./routes/countryRoutes');
 const movieRouter = require('./routes/movieRoutes');
 const netizenRouter = require('./routes/netizenRoutes');
 const markRouter = require('./routes/markRoutes');
+const roleRouter = require('./routes/roleRoutes');
 
 // Configuration Swagger
 const swaggerDocs = require('./config/swagger');
@@ -42,6 +43,7 @@ app.use("/api-movies/countries", countryRouter);
 app.use("/api-movies/movies", movieRouter);
 app.use("/api-movies/netizens", netizenRouter);
 app.use("/api-movies/marks", markRouter);
+app.use("/api-movies/roles", roleRouter);
 app.use('/api-movies/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 

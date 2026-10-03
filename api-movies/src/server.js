@@ -20,6 +20,7 @@ mongoose
                 console.log(`The server is running at http://localhost:${PORT}/api-movies/movies`);
                 console.log(`The server is running at http://localhost:${PORT}/api-movies/netizens`);
                 console.log(`The server is running at http://localhost:${PORT}/api-movies/marks`);
+                console.log(`The server is running at http://localhost:${PORT}/api-movies/roles`);
         });
     })
     .catch(err => {
@@ -27,4 +28,4 @@ mongoose
         process.exit(1);
     });
 
-module.exports = PORT
+module.exports = PORT;
