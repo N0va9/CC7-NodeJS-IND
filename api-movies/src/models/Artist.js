@@ -15,6 +15,18 @@ const artistSchema = new mongoose.Schema (
                 message: 'birthYear must be an integer.' // Nous forçons ici un nombre entier
             }
         },
+        movieId: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Movie',
+                    index: true,
+                    validate: { // Vérification que l'id du film est enregistré et valide
+                        validator: async function (movieId) {
+                            const Movie = mongoose.model("Movie");
+                            return await Movie.exists({ _id: movieId }) !== null;
+                        },
+                        message: "This movieId isn't valid. Please choose a good one."
+                    }
+        },
     },
     { timestamps: true } // Created at and updated at
 )
