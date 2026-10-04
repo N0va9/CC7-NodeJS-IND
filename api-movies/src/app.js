@@ -21,7 +21,7 @@ const swaggerUi = require("swagger-ui-express");
 const app = express();
 
 app.use(express.json()); // Transforme le body JSON de la requête en objet JavaScript
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false })) // Identifiants en formulaire
 // Une route est une instruction nous permettant de dire, que quand quelqu'un visite une URL spécifique, ça enverra une réponse spécifique.
 // Dans notre cas, on va créer des routes pour envoyer des données ou effectuer une action que l'on spécifiera dans notre gestionnaire de routes.
 

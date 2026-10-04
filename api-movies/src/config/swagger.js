@@ -52,11 +52,11 @@ const swaggerOptions = {
             },
 
             securitySchemes: {
-                OAuth2Password: {
+                oauth2Password: {
                     type: "oauth2",
                     flows: {
                         password: {
-                            tokenUrl: "/api-movies/auth/login",
+                            tokenUrl: "/api-movies/netizens/login",
                             scopes: {},
                         }
                     }

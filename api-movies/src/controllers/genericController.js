@@ -15,7 +15,6 @@ const makeCrudController = ({ repository, resourceName = 'resource'}) => ({
 
             res.status(201).json({
                 message: `The ${resourceName.toLowerCase()} ${entityName} has been created${endString}`,
-                
             });
         } catch(err) {
             next(err);

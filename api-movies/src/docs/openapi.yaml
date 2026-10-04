@@ -6,6 +6,9 @@ info:
   description: API documentation using Swagger for movies API
   
 tags:
+  - name: Netizens
+    description: Netizens management
+
   - name: Artists
     description: Artists management
 
@@ -15,17 +18,177 @@ tags:
   - name: Movies
     description: Movies management
   
-  - name: Netizens
-    description: Netizens management
-
   - name: Marks
     description: Marks management, a netizen can rate a movie
 
   - name: Roles
     description: Roles management, an artist can have roles in movies
 
-# ARTISTS
 paths:
+# NETIZENS
+  /api-movies/netizens:
+    get: 
+      tags:
+        - Netizens
+      summary: Retrieve all netizens
+      operationId: getNetizens
+      security:
+        - oauth2Password: []
+      responses: 
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Netizen"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    post: 
+      tags:
+        - Netizens
+      summary: Create a netizen
+      operationId: createNetizen
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/CreateNetizenInput"
+      responses: 
+        "201":
+          description: The netizen has been created  
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Netizen"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+  /api-movies/netizens/login:
+    post: 
+      tags:
+        - Netizens
+      summary: Log in for netizens
+      operationId: loginNetizen
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/LogNetizenInput"
+      responses: 
+        "200":
+          description: Login successful, JWT returned  
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessNetizenLogin"
+        "400": 
+          description: grant_type must be password
+        "401": 
+          description: Incorrect email or password
+
+  /api-movies/netizens/{id}:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+
+    get: 
+      tags:
+      - Netizens
+      summary: Get a netizen by his ID
+      operationId: getNetizenById
+      security:
+        - oauth2Password: []
+      responses: 
+        "200":
+          description: The netizen was found   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Netizen"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+    
+    patch: 
+      tags: 
+        - Netizens
+      summary: Update a netizen 
+      operationId: updateNetizen
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/UpdateNetizenInput"
+      security:
+        - oauth2Password: []
+      responses: 
+        "200":
+          description: Netizen updated   
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Netizen"
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "409": 
+          $ref: "#/components/responses/Conflict"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+    delete: 
+      tags: 
+        - Netizens
+      summary: Delete a netizen 
+      operationId: deleteNetizen
+      security:
+        - oauth2Password: []
+      responses: 
+        "204":
+          description: Netizen deleted   
+
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+  
+
+# ARTISTS
   /api-movies/artists:
     get: 
       tags:
@@ -382,155 +545,7 @@ paths:
         "500": 
           $ref: "#/components/responses/InternalServerError"
     
-# NETIZENS
-  /api-movies/netizens:
-    get: 
-      tags:
-        - Netizens
-      summary: Retrieve all netizens
-      operationId: getNetizens
-      security:
-        - OAuth2Password: []
-      responses: 
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Netizen"
-        "500": 
-          $ref: "#/components/responses/InternalServerError"
-    
-    post: 
-      tags:
-        - Netizens
-      summary: Create  a netizen
-      operationId: createNetizen
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema: 
-              $ref: "#/components/schemas/CreateNetizenInput"
-      responses: 
-        "201":
-          description: The netizen has been created  
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Netizen"
-        "400": 
-          $ref: "#/components/responses/BadRequest"
 
-        "409": 
-          $ref: "#/components/responses/Conflict"
-        
-        "500": 
-          $ref: "#/components/responses/InternalServerError"
-
-  /api-movies/netizens/login:
-    post: 
-      tags:
-        - Netizens
-      summary: Log in for netizens
-      operationId: loginNetizen
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema: 
-              $ref: "#/components/schemas/LogNetizenInput"
-      responses: 
-        "200":
-          description: Login successful, JWT returned  
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SuccessNetizenLogin"
-        "401": 
-          description: Incorrect email or password
-
-  /api-movies/netizens/{id}:
-    parameters:
-      - $ref: "#/components/parameters/Id"
-
-    get: 
-      tags:
-      - Netizens
-      summary: Get a netizen by his ID
-      operationId: getNetizenById
-      security:
-        - OAuth2Password: []
-      responses: 
-        "200":
-          description: The netizen was found   
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Netizen"
-        "400": 
-          $ref: "#/components/responses/BadRequest"
-
-        "404": 
-          $ref: "#/components/responses/ResourceNotFound"
-        
-        "500": 
-          $ref: "#/components/responses/InternalServerError"
-    
-    patch: 
-      tags: 
-        - Netizens
-      summary: Update a netizen 
-      operationId: updateNetizen
-      requestBody:
-        required: true
-        content: 
-          application/json:
-            schema: 
-              $ref: "#/components/schemas/UpdateNetizenInput"
-      security:
-        - OAuth2Password: []
-      responses: 
-        "200":
-          description: Netizen updated   
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Netizen"
-        "400": 
-          $ref: "#/components/responses/BadRequest"
-
-        "404": 
-          $ref: "#/components/responses/ResourceNotFound"
-        
-        "409": 
-          $ref: "#/components/responses/Conflict"
-        
-        "500": 
-          $ref: "#/components/responses/InternalServerError"
-
-    delete: 
-      tags: 
-        - Netizens
-      summary: Delete a netizen 
-      operationId: deleteNetizen
-      security:
-        - OAuth2Password: []
-      responses: 
-        "204":
-          description: Netizen deleted   
-
-        "400": 
-          $ref: "#/components/responses/BadRequest"
-
-        "404": 
-          $ref: "#/components/responses/ResourceNotFound"
-        
-        "500": 
-          $ref: "#/components/responses/InternalServerError"
-  
 # MARK
   /api-movies/marks:
     get: 
@@ -1177,6 +1192,31 @@ components:
             status: 404
             code: RESOURCE_NOT_FOUND
             message: Resource not found
+
+
+    Unauthorized:
+      description: Unauthorized access
+      content: 
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+          example: 
+            status: 401
+            code: UNAUTHORIZED_ACCESS
+            message: Authentification required
+
+    Forbidden:
+      description: Forbidden access
+      content: 
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+          example: 
+            status: 403
+            code: FORBIDDEN_ACCESS
+            message: You don't have the right to access at this resource
 
     Conflict:
       description: Invalid request
