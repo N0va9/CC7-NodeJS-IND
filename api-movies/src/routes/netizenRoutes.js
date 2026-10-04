@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const netizenController = require('../controllers/netizenController');
 const verifyToken = require("../middleware/auth");
+const netizenController = require('../controllers/netizenController');
 
 // Routes publiques
 router.post('/', netizenController.create);

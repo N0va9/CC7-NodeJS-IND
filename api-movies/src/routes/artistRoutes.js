@@ -1,12 +1,13 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
+const verifyToken = require("../middleware/auth");
 const artistController = require('../controllers/artistController');
 
-router.get('/', artistController.getAll);
-router.get('/:id', artistController.getOne);
-router.post('/', artistController.create);
-router.patch('/:id', artistController.update);
-router.delete('/:id', artistController.delete);
+// Routes protégées
+router.get('/', verifyToken, artistController.getAll);
+router.get('/:id', verifyToken, artistController.getOne);
+router.post('/', verifyToken, artistController.create);
+router.patch('/:id', verifyToken, artistController.update);
+router.delete('/:id', verifyToken, artistController.delete);
 
 
 module.exports = router;

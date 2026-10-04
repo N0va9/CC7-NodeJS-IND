@@ -1,12 +1,13 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
+const verifyToken = require("../middleware/auth");
 const movieController = require('../controllers/movieController');
 
-router.get('/', movieController.getAll);
-router.get('/:id', movieController.getOne);
-router.post('/', movieController.create);
-router.patch('/:id', movieController.update);
-router.delete('/:id', movieController.delete);
+// Routes protégées
+router.get('/', verifyToken, movieController.getAll);
+router.get('/:id', verifyToken, movieController.getOne);
+router.post('/', verifyToken, movieController.create);
+router.patch('/:id', verifyToken, movieController.update);
+router.delete('/:id', verifyToken, movieController.delete);
 
 
 module.exports = router;

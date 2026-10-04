@@ -1,12 +1,13 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
+const verifyToken = require("../middleware/auth");
 const markController = require('../controllers/markController');
 
-router.get('/', markController.getAll);
-router.get('/:id', markController.getOne);
-router.post('/', markController.create);
-router.patch('/:id', markController.update);
-router.delete('/:id', markController.delete);
+// Routes protégées
+router.get('/', verifyToken, markController.getAll);
+router.get('/:id', verifyToken, markController.getOne);
+router.post('/', verifyToken, markController.create);
+router.patch('/:id', verifyToken, markController.update);
+router.delete('/:id', verifyToken, markController.delete);
 
 
 module.exports = router;

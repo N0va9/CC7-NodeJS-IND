@@ -195,6 +195,8 @@ paths:
         - Artists
       summary: Retrieve all artists
       operationId: getArtists
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: All artists has been retrived  
@@ -204,6 +206,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Artist"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
         "500": 
           $ref: "#/components/responses/InternalServerError"
     
@@ -218,6 +223,8 @@ paths:
           application/json:
             schema: 
               $ref: "#/components/schemas/CreateArtistInput"
+      security:
+        - oauth2Password: []
       responses: 
         "201":
           description: The artist has been created  
@@ -227,6 +234,9 @@ paths:
                 $ref: "#/components/schemas/Artist"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "409": 
           $ref: "#/components/responses/Conflict"
@@ -243,6 +253,8 @@ paths:
       - Artists
       summary: Get an artist by his ID
       operationId: getArtistById
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: The artist was found   
@@ -252,6 +264,9 @@ paths:
                 $ref: "#/components/schemas/Artist"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -270,6 +285,8 @@ paths:
           application/json:
             schema: 
               $ref: "#/components/schemas/UpdateArtistInput"
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: Artist updated   
@@ -279,6 +296,9 @@ paths:
                 $ref: "#/components/schemas/Artist"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -294,12 +314,17 @@ paths:
         - Artists
       summary: Delete an artist 
       operationId: deleteArtist
+      security:
+        - oauth2Password: []
       responses: 
         "204":
           description: Artist deleted   
 
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -314,6 +339,8 @@ paths:
         - Countries
       summary: Retrieve all countries
       operationId: getCountries
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: All countries has been retrived  
@@ -323,6 +350,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Country"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
         "500": 
           $ref: "#/components/responses/InternalServerError"
     
@@ -337,6 +367,8 @@ paths:
           application/json:
             schema: 
               $ref: "#/components/schemas/CreateCountryInput"
+      security:
+        - oauth2Password: []
       responses: 
         "201":
           description: The country has been created  
@@ -346,6 +378,9 @@ paths:
                 $ref: "#/components/schemas/Country"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "409": 
           $ref: "#/components/responses/Conflict"
@@ -362,6 +397,8 @@ paths:
       - Countries
       summary: Get  a country by his code
       operationId: getCountryByCode
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: The country was found   
@@ -371,6 +408,9 @@ paths:
                 $ref: "#/components/schemas/Country"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -389,6 +429,8 @@ paths:
           application/json:
             schema: 
               $ref: "#/components/schemas/UpdateCountryInput"
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: Country updated   
@@ -398,6 +440,9 @@ paths:
                 $ref: "#/components/schemas/Country"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -413,12 +458,17 @@ paths:
         - Countries
       summary: Delete a country
       operationId: deleteCountry
+      security:
+        - oauth2Password: []
       responses: 
         "204":
           description: Country deleted   
 
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -433,6 +483,8 @@ paths:
         - Movies
       summary: Retrieve all movies
       operationId: getMovies
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: All movies has been retrived  
@@ -442,6 +494,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Movie"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
         "500": 
           $ref: "#/components/responses/InternalServerError"
     
@@ -456,6 +511,8 @@ paths:
           application/json:
             schema: 
               $ref: "#/components/schemas/CreateMovieInput"
+      security:
+        - oauth2Password: []
       responses: 
         "201":
           description: The movie has been created  
@@ -465,6 +522,9 @@ paths:
                 $ref: "#/components/schemas/Movie"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "409": 
           $ref: "#/components/responses/Conflict"
@@ -481,6 +541,8 @@ paths:
       - Movies
       summary: Get a movie by his ID
       operationId: getMovieById
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: The movie was found   
@@ -490,6 +552,9 @@ paths:
                 $ref: "#/components/schemas/Movie"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -508,6 +573,8 @@ paths:
           application/json:
             schema: 
               $ref: "#/components/schemas/UpdateMovieInput"
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: Movie updated   
@@ -517,6 +584,9 @@ paths:
                 $ref: "#/components/schemas/Movie"
         "400": 
           $ref: "#/components/responses/BadRequest"
+        
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -532,12 +602,17 @@ paths:
         - Movies
       summary: Delete a movie 
       operationId: deleteMovie
+      security:
+        - oauth2Password: []
       responses: 
         "204":
           description: Movie deleted   
 
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -553,6 +628,8 @@ paths:
         - Marks
       summary: Retrieve all marks
       operationId: getMarks
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: Success
@@ -562,6 +639,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Mark"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
         "500": 
           $ref: "#/components/responses/InternalServerError"
     
@@ -576,6 +656,8 @@ paths:
           application/json:
             schema: 
               $ref: "#/components/schemas/CreateMarkInput"
+      security:
+        - oauth2Password: []
       responses: 
         "201":
           description: The mark has been created  
@@ -585,6 +667,9 @@ paths:
                 $ref: "#/components/schemas/Mark"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "409": 
           $ref: "#/components/responses/Conflict"
@@ -601,6 +686,8 @@ paths:
       - Marks
       summary: Get a mark by his ID
       operationId: getMarkById
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: The mark was found   
@@ -610,6 +697,9 @@ paths:
                 $ref: "#/components/schemas/Mark"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -628,6 +718,8 @@ paths:
           application/json:
             schema: 
               $ref: "#/components/schemas/UpdateMarkInput"
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: Mark updated   
@@ -637,6 +729,9 @@ paths:
                 $ref: "#/components/schemas/Mark"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -652,12 +747,17 @@ paths:
         - Marks
       summary: Delete a mark 
       operationId: deleteMark
+      security:
+        - oauth2Password: []
       responses: 
         "204":
           description: Mark deleted   
 
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -672,6 +772,8 @@ paths:
         - Roles
       summary: Retrieve all roles
       operationId: getRoles
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: Success
@@ -681,6 +783,10 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Role"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
         "500": 
           $ref: "#/components/responses/InternalServerError"
     
@@ -695,6 +801,8 @@ paths:
           application/json:
             schema: 
               $ref: "#/components/schemas/CreateRoleInput"
+      security:
+        - oauth2Password: []
       responses: 
         "201":
           description: The role has been created  
@@ -704,6 +812,9 @@ paths:
                 $ref: "#/components/schemas/Role"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "409": 
           $ref: "#/components/responses/Conflict"
@@ -720,6 +831,8 @@ paths:
       - Roles
       summary: Get a role by his ID
       operationId: getRoleById
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: The role was found   
@@ -729,6 +842,9 @@ paths:
                 $ref: "#/components/schemas/Role"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -747,6 +863,8 @@ paths:
           application/json:
             schema: 
               $ref: "#/components/schemas/UpdateRoleInput"
+      security:
+        - oauth2Password: []
       responses: 
         "200":
           description: Role updated   
@@ -756,6 +874,9 @@ paths:
                 $ref: "#/components/schemas/Role"
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -771,12 +892,17 @@ paths:
         - Roles
       summary: Delete a role 
       operationId: deleteRole
+      security:
+        - oauth2Password: []
       responses: 
         "204":
           description: Role deleted   
 
         "400": 
           $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -978,7 +1104,7 @@ components:
         email:
           type: string
           format: email
-          example: "brucewilis@gmail.com"
+          example: "brucewillis@gmail.com"
         firstName:
           type: string
           minLength: 2
@@ -1013,7 +1139,7 @@ components:
         email:
           type: string
           format: email
-          example: "brucewilis@gmail.com"
+          example: "brucewillis@gmail.com"
         firstName:
           type: string
           minLength: 2
@@ -1046,7 +1172,7 @@ components:
         email:
           type: string
           format: email
-          example: "brucewilis@gmail.com"
+          example: "brucewillis@gmail.com"
         password:
           type: string
           format: password
@@ -1076,7 +1202,7 @@ components:
         email:
           type: string
           format: email
-          example: "brucewilis@gmail.com"
+          example: "brucewillis@gmail.com"
         movieId:
           description: Movie ID
           type: string
@@ -1097,7 +1223,7 @@ components:
         email:
           type: string
           format: email
-          example: "brucewilis@gmail.com"
+          example: "brucewillis@gmail.com"
         movieId:
           description: Movie ID
           type: string
