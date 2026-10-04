@@ -1,5 +1,3 @@
-require('dotenv').config(); // Charge le .env (1ère ligne obligatoire)
-
 // Swagger configuration
 const swaggerJSDoc = require('swagger-jsdoc');
 const path = require('path');
@@ -53,13 +51,16 @@ const swaggerOptions = {
                 ...schemas
             },
 
-
             securitySchemes: {
-                bearerAuth: {
-                    type: 'http',
-                    scheme: 'bearer',
-                    bearerFormat: 'JWT',
-                },
+                OAuth2Password: {
+                    type: "oauth2",
+                    flows: {
+                        password: {
+                            tokenUrl: "/api-movies/auth/login",
+                            scopes: {},
+                        }
+                    }
+                }
             },
         },
     },

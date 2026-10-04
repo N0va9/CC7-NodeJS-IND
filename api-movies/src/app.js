@@ -20,9 +20,8 @@ const swaggerUi = require("swagger-ui-express");
 // On va pouvoir définir nos routes, middleware, et contrôler comment notre serveur répond aux requêtes
 const app = express();
 
-// Middleware global 
-app.use(express.json());
-
+app.use(express.json()); // Transforme le body JSON de la requête en objet JavaScript
+app.use(express.urlencoded({ extended: false }));
 // Une route est une instruction nous permettant de dire, que quand quelqu'un visite une URL spécifique, ça enverra une réponse spécifique.
 // Dans notre cas, on va créer des routes pour envoyer des données ou effectuer une action que l'on spécifiera dans notre gestionnaire de routes.
 
@@ -30,12 +29,6 @@ app.use(express.json());
 // On peut spécifier des paramètres pour les routes : ce sont des variables dans l'URL permettant à notre server de gérer les valeurs dynamiques, comme un id pour une route par exemple
 // En Express, on l'écrit ainsi :id
 // Tout ce qu'on remplace par :id dans l'URL devient disponible en tant que req.params.id dans notre gestionnaire de routes.
-
-
-const jwt = require('jsonwebtoken')
-
-
-
 
 // Branchement des routers
 app.use("/api-movies/artists", artistRouter);

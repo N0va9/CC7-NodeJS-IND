@@ -18,7 +18,12 @@ tags:
   - name: Netizens
     description: Netizens management
 
-  
+  - name: Marks
+    description: Marks management, a netizen can rate a movie
+
+  - name: Roles
+    description: Roles management, an artist can have roles in movies
+
 # ARTISTS
 paths:
   /api-movies/artists:
@@ -384,6 +389,8 @@ paths:
         - Netizens
       summary: Retrieve all netizens
       operationId: getNetizens
+      security:
+        - OAuth2Password: []
       responses: 
         "200":
           description: Success
@@ -423,6 +430,28 @@ paths:
         "500": 
           $ref: "#/components/responses/InternalServerError"
 
+  /api-movies/netizens/login:
+    post: 
+      tags:
+        - Netizens
+      summary: Log in for netizens
+      operationId: loginNetizen
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/LogNetizenInput"
+      responses: 
+        "200":
+          description: Login successful, JWT returned  
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessNetizenLogin"
+        "401": 
+          description: Incorrect email or password
+
   /api-movies/netizens/{id}:
     parameters:
       - $ref: "#/components/parameters/Id"
@@ -430,8 +459,10 @@ paths:
     get: 
       tags:
       - Netizens
-      summary: Get  a netizen by his ID
+      summary: Get a netizen by his ID
       operationId: getNetizenById
+      security:
+        - OAuth2Password: []
       responses: 
         "200":
           description: The netizen was found   
@@ -459,6 +490,8 @@ paths:
           application/json:
             schema: 
               $ref: "#/components/schemas/UpdateNetizenInput"
+      security:
+        - OAuth2Password: []
       responses: 
         "200":
           description: Netizen updated   
@@ -483,6 +516,8 @@ paths:
         - Netizens
       summary: Delete a netizen 
       operationId: deleteNetizen
+      security:
+        - OAuth2Password: []
       responses: 
         "204":
           description: Netizen deleted   
@@ -985,6 +1020,35 @@ components:
           minimum: 1900
           maximum: 2100
           example: 1954
+
+
+    LogNetizenInput:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: "brucewilis@gmail.com"
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 128
+          description: Password with at least 8 characters.
+          example: "exempleDeMotDePasse"
+
+    SuccessNetizenLogin:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Login successful"
+        token:
+          type: string
+          example: "cdsdzds6fs5f56ezfz54f5fze4fdezfzef1edz..."
 
 # Mark
     CreateMarkInput:
