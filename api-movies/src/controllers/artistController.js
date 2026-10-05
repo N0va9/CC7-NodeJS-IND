@@ -1,6 +1,7 @@
 const makeCrudController = require('./genericController');
 const artistRepository = require('../repositories/artistRepository');
 const Artist = require('../models/Artist');
+const Movie = require('../models/Movie');
 const escapeRegex = require('../utils/utils');
 const AppError = require("../errors/AppError");
 
@@ -11,8 +12,10 @@ const artistController = makeCrudController({
 
 artistController.publicGetAll = async (req, res, next )=> {
     try {
+        // Recherche optionnelle
         const {search, realisators } = req.query;
 
+        // Pagination
         const page = Math.max(Number.parseInt(req.query.page, 10) || 1, 1);
         const limit = Math.min(Math.max(Number.parseInt(req.query.limit, 10) || 10, 1), 100);
 
@@ -74,6 +77,84 @@ artistController.publicGetAll = async (req, res, next )=> {
 
         return res.status(200).json({
             data: artists,
+
+            pagination: {
+                page,
+                limit,
+                total, 
+                totalPages: Math.ceil(total/limit),
+                hasNextPages: page * limit < total,
+                hasPreviousPage: page > 1,
+            },
+        });
+    } catch(err) {
+        next(err);
+    }
+};
+
+
+
+artistController.publicGetAllMoviesRealised = async (req, res, next)=> {
+    try {
+        // Pagination
+        const page = Math.max(Number.parseInt(req.query.page, 10) || 1, 1);
+        const limit = Math.min(Math.max(Number.parseInt(req.query.limit, 10) || 10, 1), 100);
+
+
+        // On récupère l'artiste concerné
+        const artistFound = await Artist.findById(req.params.id)
+            .select("movieIds")
+            .lean();
+
+        if (!artistFound) { // Si artiste non trouvé
+            throw new AppError(
+                404,
+                `ARTIST_NOT_FOUND`,
+                `Artist not found`
+            );
+        };
+        
+
+        if (!artistFound?.movieIds?.length){
+            // Si la liste est vide, on renvoie une liste vide
+            return res.status(200).json({
+                data: [],
+                pagination: {
+                    page,
+                    limit,
+                    total: 0, 
+                    totalPages: 0,
+                    hasNextPages: false,
+                    hasPreviousPage: false,
+                },
+            });
+
+        }
+
+        // Affiche tous les champs selon le rôle de l'utilisateur
+        let selectFields = "";
+        if(req?.auth?.role === "USER") {
+            selectFields = "-_id -__v -createdAt -updatedAt -countries"
+        }
+
+        const filter = {
+            _id: {
+                $in: artistFound.movieIds,
+            },
+        };
+
+        const [movies, total] = await Promise.all([
+            Movie.find(filter)
+            .select(selectFields)
+            .sort({ createdAt: -1})
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .lean(),
+            Movie.countDocuments(filter),
+        ]);
+
+        return res.status(200).json({
+            data: movies,
 
             pagination: {
                 page,

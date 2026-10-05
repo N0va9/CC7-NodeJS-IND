@@ -263,6 +263,61 @@ paths:
         "500": 
           $ref: "#/components/responses/InternalServerError"
 
+  /api-movies/artists/{id}/allMoviesRealised:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+
+    get: 
+      tags:
+      - Artists
+      summary: Get all movies realised by an artist with his ID
+      operationId: getAllMoviesByArtistId
+      security:
+        - oauth2Password: []
+      parameters:
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        description: Number of pages
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 10
+          maximum: 100
+        description: Limit of the output
+      responses: 
+        "200":
+          description: The movie realised by the given artist
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Movie"
+                  
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+
   /api-movies/artists/{id}:
     parameters:
       - $ref: "#/components/parameters/Id"
