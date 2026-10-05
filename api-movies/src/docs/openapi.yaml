@@ -678,7 +678,7 @@ paths:
         "500": 
           $ref: "#/components/responses/InternalServerError"
 
-  /api-movies/movies/public:
+  /api-movies/movies/all:
     get: 
       tags:
         - Movies
@@ -713,7 +713,9 @@ paths:
           minimum: 1
           default: 10
           maximum: 100
-        description: Limit of the output     
+        description: Limit of the output
+      security:
+        - oauth2Password: [] 
       responses: 
         "200":
           description: All movies has been retrived  

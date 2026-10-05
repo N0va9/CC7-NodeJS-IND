@@ -42,12 +42,15 @@ movieController.publicGetAll = async (req, res, next )=> {
             filter.year = intYear;
         }
 
+        let selectFields = "";
+
+        if(req.auth.role === "USER") {
+            selectFields = "-_id -__v -createdAt -updatedAt"
+        }
+
         const [movies, total] = await Promise.all([
             Movie.find(filter)
-            .select("-_id")
-            .select("-__v")
-            .select("-createdAt")
-            .select("-updatedAt")
+            .select(selectFields)
             .sort({ createdAt: -1})
             .skip((page - 1) * limit)
             .limit(limit)
