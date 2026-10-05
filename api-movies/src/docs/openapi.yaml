@@ -748,6 +748,41 @@ paths:
         "500": 
           $ref: "#/components/responses/InternalServerError"
 
+  /api-movies/movies/{id}/details:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+
+    get: 
+      tags:
+      - Movies
+      summary: Get detailed info about a movie
+      operationId: getDetailedInfoByMovieID
+      security:
+        - oauth2Password: []
+      responses: 
+        "200":
+          description: The movie's detailed info 
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/MovieDetailed"
+                  
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+
 
   /api-movies/movies/{id}:
     parameters:
@@ -1382,6 +1417,7 @@ components:
         - year 
         - genre
         - resume
+        - countries
       properties:
         title:
           type: string
@@ -1408,6 +1444,79 @@ components:
           example:
           - id1
           - id2
+
+    MovieDetailed:
+      type: object
+      required:
+        - title
+        - year 
+        - genre
+        - resume
+        - countries
+        - realisators
+        - artistsWithRole
+      properties:
+        title:
+          type: string
+          minLength: 2
+          example: "Le Loup de Wall Street"
+        year:
+          type: integer
+          format: int32
+          minimum: 1900
+          maximum: 2100
+          example: 2013
+        genre:
+          type: string
+          minLength: 2
+          example: "Comedy"
+        resume:
+          type: string
+          minLength: 2
+          example: "In 1987, twenty-two-year-old Jordan Belfort becomes a Wall Street stockbroker for L.F. Rothschild, employed under Mark Hanna. Quickly enticed by the drug-fueled stockbroker culture, he learns that their goal is to make themselves rich. Jordan loses his job following Black Monday, the largest one-day stock market drop since the crash of 1929, and joins Investor's Center, a boiler room brokerage on Long Island, specializing in pink sheet penny stocks. He makes a small fortune thanks to his aggressive pitching style and high commissions."
+        countries:
+            type: array
+            items:
+              type: object
+              properties:
+                name: 
+                  type: string
+                  example: "US"
+                languages: 
+                  type: string
+                  example: "English"
+        realisators:
+            type: array
+            items:
+              type: object
+              properties:
+                firstName: 
+                  type: string
+                  example: "Martin"
+                lastName: 
+                  type: string
+                  example: "Scorsese"
+                birthYear: 
+                  type: integer
+                  example: 1942
+
+        artistsWithRole:
+            type: array
+            items:
+              type: object
+              properties:
+                firstName: 
+                  type: string
+                  example: "Leonardo"
+                lastName: 
+                  type: string
+                  example: "DiCaprio"
+                birthYear: 
+                  type: integer
+                  example: 1974
+                role: 
+                  type: string
+                  example: "Actor"
 
 # NETIZENS
     CreateNetizenInput:

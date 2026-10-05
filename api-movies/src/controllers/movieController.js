@@ -4,6 +4,8 @@ const Movie = require('../models/Movie');
 const Mark = require('../models/Mark');
 const escapeRegex = require('../utils/utils');
 const AppError = require("../errors/AppError");
+const Artist = require('../models/Artist');
+const Role = require('../models/Role');
 
 
 const movieController = makeCrudController({
@@ -124,6 +126,74 @@ movieController.getAllRatings = async (req, res, next)=> {
                 hasPreviousPage: page > 1,
             },
         });
+    } catch(err) {
+        next(err);
+    }
+};
+
+
+movieController.getDetails = async (req, res, next)=> {
+    try {
+
+        // On récupère le film concerné et on vérifie que l'id existe
+        const movieFound = await Movie.findById(req.params.id)
+            .populate({ // Afficher les infos des pays
+                path: "countries",
+                select: "-createdAt -updatedAt -__v"
+            })
+            .select("-createdAt -updatedAt -__v")
+            .lean();
+
+        if (!movieFound) { // Si film non trouvé
+            throw new AppError(
+                404,
+                `MOVIE_NOT_FOUND`,
+                `Movie not found`
+            );
+        };        
+
+        // Liste des réalisateurs du film
+        const artistsWhoRealisedThisMovie = await Artist.find({
+            movieIds: {
+                $in: req.params.id,
+            }
+        })
+        .select("-_id -movieIds -createdAt -updatedAt -__v")
+        .lean();
+
+        movieFound.realisators = artistsWhoRealisedThisMovie;
+
+        // Liste des artistes jouant un rôle dedans
+        const artistsWithRoleInThisMovie = await Role.find({
+            movieId: {
+                $in: req.params.id,
+            }
+        })
+        .populate({
+            path: "artistId",
+            select: "firstName lastName birthYear -_id"
+        })
+        .select("role -_id")
+        .lean();
+
+        // Nettoyage de la sortie pour récupérer que les données qui nous intéressent
+        let cleanedList = [];
+        artistsWithRoleInThisMovie.forEach(artist => {
+            let actualArtist = {};
+            actualArtist.firstName = artist.artistId.firstName;
+            actualArtist.lastName = artist.artistId.lastName;
+            actualArtist.birthYear = artist.artistId.birthYear;
+            actualArtist.role = artist.role;
+            cleanedList.push(actualArtist);
+        });
+
+        movieFound.artistsWithRole = cleanedList;
+
+
+        // Envoi du résultat
+        res.status(200).json(movieFound);
+
+
     } catch(err) {
         next(err);
     }
