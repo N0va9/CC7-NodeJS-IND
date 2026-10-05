@@ -1150,9 +1150,13 @@ components:
           minimum: 1900
           maximum: 2100
           example: 1954
-        movieId:
-          type: string
-          example: "optional"
+        movieIds:
+          type: array
+          items:
+            type: string
+          example:
+          - id1
+          - id2
       
     UpdateArtistInput:
       type: object
@@ -1175,10 +1179,13 @@ components:
           minimum: 1900
           maximum: 2100
           example: 1954
-        movieId:
-          description: The movie ID directed by the artist (optional)
-          type: string
-          example: "6abf9cc61fea465d82e005b8"
+        movieIds:
+          type: array
+          items:
+            type: string
+          example:
+          - id1
+          - id2
     
 # COUNTRIES
     CreateCountryInput:

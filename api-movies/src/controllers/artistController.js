@@ -28,18 +28,19 @@ artistController.publicGetAll = async (req, res, next )=> {
             ]
         }
 
-        // Vérifier qu'un film est présent dans movieId
+        // Vérifier qu'un film est présent dans movieIds
         switch(realisators) {
             case "yes": // Afficher que les réalisateurs
-                filter.movieId = { // Vérification que movieId est non null
+                filter.movieIds = { // Vérification que movieIds est non null
                     $exists: true,
-                    $ne: null
+                    $ne: [] // vérifie que c'est différent de la liste vide
                 }
                 break;
 
             case "no": // Afficher que les non-réalisateurs
-                filter.movieId = { // Vérification que movieId est null
-                    $exists: false
+                filter.movieIds = { // Vérification que movieIds est vide
+                    $exists: true,
+                    $eq: []
                 }
                 break;
 
@@ -58,7 +59,7 @@ artistController.publicGetAll = async (req, res, next )=> {
         let selectFields = "";
 
         if(req.auth.role === "USER") {
-            selectFields = "-_id -__v -createdAt -updatedAt -movieId"
+            selectFields = "-_id -__v -createdAt -updatedAt -movieIds"
         }
 
         const [artists, total] = await Promise.all([

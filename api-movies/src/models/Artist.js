@@ -15,18 +15,48 @@ const artistSchema = new mongoose.Schema (
                 message: 'birthYear must be an integer.' // Nous forçons ici un nombre entier
             }
         },
-        movieId: {
+        movieIds: {
+            type: [
+                {
                     type: mongoose.Schema.Types.ObjectId,
                     ref: 'Movie',
                     index: true,
-                    validate: { // Vérification que l'id du film est enregistré et valide
-                        validator: async function (movieId) {
-                            const Movie = mongoose.model("Movie");
-                            return await Movie.exists({ _id: movieId }) !== null;
-                        },
-                        message: "This movieId isn't valid. Please choose a good one."
-                    }
-        },
+                }
+            ],
+            required:true,
+            set: function (ids) { // Pour empêcher d'enregistrer plisieurs fois le même id dans la liste ids
+                if (!Array.isArray(ids)) {
+                    return ids;
+                }
+
+                const uniqueIds = [
+                    ...new Set(ids.map((id) => id.toString())),
+                ]
+
+                return uniqueIds;
+            },
+            validate: { // Vérification que l'id du film est enregistré et valide
+                validator: async function (ids) {
+                    const Movie = mongoose.model("Movie");
+
+                    // On retire les doublons au cas où 
+                    const uniqueIds = [
+                        ...new Set(ids.map((id) => id.toString())),
+                    ]
+
+                    // On compte le nombre de films trouvés avec ces ids
+                    const found = await Movie.countDocuments(
+                        { _id: {
+                            $in:uniqueIds,
+                            },
+                        }
+                    );
+
+                    return found === uniqueIds.length; // Vérification qu'on a le même nombre d'Ids trouvés
+                },
+                message: "At least one movieId is wrong, please check."
+            }
+    }
     },
     { timestamps: true } // Created at and updated at
 )
