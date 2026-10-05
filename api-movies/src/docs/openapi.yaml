@@ -317,6 +317,40 @@ paths:
         "500": 
           $ref: "#/components/responses/InternalServerError"
 
+  /api-movies/artists/{id}/details:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+
+    get: 
+      tags:
+      - Artists
+      summary: Get detailed info about an artist
+      operationId: getDetailedInfoByArtistID
+      security:
+        - oauth2Password: []
+      responses: 
+        "200":
+          description: The artist's detailed info 
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/ArtistDetailed" 
+                  
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
 
   /api-movies/artists/{id}:
     parameters:
@@ -1517,6 +1551,77 @@ components:
                 role: 
                   type: string
                   example: "Actor"
+
+    ArtistDetailed:
+      type: object
+      required:
+        - firstName
+        - lastName 
+        - birthYear
+        - moviesRealised
+        - moviesPlayed
+
+      properties:
+        firstName:
+          type: string
+          minLength: 2
+          example: "Leonardo"
+        lastName:
+          type: string
+          minLength: 2
+          example: "DiCaprio"
+        birthYear:
+          type: integer
+          format: int32
+          minimum: 1900
+          maximum: 2100
+          example: 1974
+
+        moviesRealised:
+            example: []
+            type: array
+            items:
+              type: object
+              properties:
+                title: 
+                  type: string
+                year: 
+                  type: integer
+                genre: 
+                  type: string
+                resume: 
+                  type: string
+                countries:
+                    type: array
+                    items:
+                      type: string
+
+        moviesPlayed:
+            type: array
+            items:
+              type: object
+              properties:
+                title: 
+                  type: string
+                  example: "Le Loup de Wall Street"
+                year: 
+                  type: integer
+                  example: 2013
+                genre: 
+                  type: string
+                  example: "Comedy"
+                resume: 
+                  type: string
+                  example: "In 1987, twenty-two-year-old Jordan Belfort becomes a Wall Street stockbroker for L.F. Rothschild, employed under Mark Hanna. Quickly enticed by the drug-fueled stockbroker culture, he learns that their goal is to make themselves rich. Jordan loses his job following Black Monday, the largest one-day stock market drop since the crash of 1929, and joins Investor's Center, a boiler room brokerage on Long Island, specializing in pink sheet penny stocks. He makes a small fortune thanks to his aggressive pitching style and high commissions."
+                countries:
+                    type: array
+                    items:
+                      type: string
+                      example: "US"
+                role: 
+                  type: string
+                  example: "Actor"   
+
 
 # NETIZENS
     CreateNetizenInput:
