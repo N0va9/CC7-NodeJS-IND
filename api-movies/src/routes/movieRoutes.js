@@ -7,6 +7,7 @@ const movieController = require('../controllers/movieController');
 router.get('/all', verifyToken, authorizeNetizenRoles("USER", "ADMIN"), movieController.publicGetAll);
 
 // Routes protégées
+router.get('/:id/ratings', verifyToken, authorizeNetizenRoles("ADMIN"), movieController.getAllRatings);
 router.get('/', verifyToken, authorizeNetizenRoles("ADMIN"), movieController.getAll);
 router.get('/:id', verifyToken, authorizeNetizenRoles("ADMIN"), movieController.getOne);
 router.post('/', verifyToken, authorizeNetizenRoles("ADMIN"), movieController.create);

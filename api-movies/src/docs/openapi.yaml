@@ -282,7 +282,7 @@ paths:
           type: integer
           default: 1
           minimum: 1
-        description: Number of pages
+        description: Page N°
       - in: query
         name: limit
         required: false
@@ -446,7 +446,7 @@ paths:
           type: integer
           default: 1
           minimum: 1
-        description: Number of pages
+        description: Page N°
       - in: query
         name: limit
         required: false
@@ -694,6 +694,61 @@ paths:
         "500": 
           $ref: "#/components/responses/InternalServerError"
 
+  /api-movies/movies/{id}/ratings:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+
+    get: 
+      tags:
+      - Movies
+      summary: Get all ratings for a movie with his ID
+      operationId: getAllRatingsByMovieID
+      security:
+        - oauth2Password: []
+      parameters:
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        description: Page N°
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 10
+          maximum: 100
+        description: Limit of the output
+      responses: 
+        "200":
+          description: The movie's ratings 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Mark"
+                  
+        "400": 
+          $ref: "#/components/responses/BadRequest"
+
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+        "404": 
+          $ref: "#/components/responses/ResourceNotFound"
+        
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+
   /api-movies/movies/{id}:
     parameters:
       - $ref: "#/components/parameters/Id"
@@ -817,7 +872,7 @@ paths:
           type: integer
           default: 1
           minimum: 1
-        description: Number of pages
+        description: Page N°
       - in: query
         name: limit
         required: false

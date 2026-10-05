@@ -1,6 +1,7 @@
 const makeCrudController = require('./genericController');
 const movieRepository = require('../repositories/movieRepository');
 const Movie = require('../models/Movie');
+const Mark = require('../models/Mark');
 const escapeRegex = require('../utils/utils');
 const AppError = require("../errors/AppError");
 
@@ -60,6 +61,59 @@ movieController.publicGetAll = async (req, res, next )=> {
 
         return res.status(200).json({
             data: movies,
+
+            pagination: {
+                page,
+                limit,
+                total, 
+                totalPages: Math.ceil(total/limit),
+                hasNextPages: page * limit < total,
+                hasPreviousPage: page > 1,
+            },
+        });
+    } catch(err) {
+        next(err);
+    }
+};
+
+
+movieController.getAllRatings = async (req, res, next)=> {
+    try {
+        // Pagination
+        const page = Math.max(Number.parseInt(req.query.page, 10) || 1, 1);
+        const limit = Math.min(Math.max(Number.parseInt(req.query.limit, 10) || 10, 1), 100);
+
+
+        // On récupère le film concerné et on vérifie que l'id existe
+        const movieFound = await Movie.findById(req.params.id);
+
+        if (!movieFound) { // Si film non trouvé
+            throw new AppError(
+                404,
+                `MOVIE_NOT_FOUND`,
+                `Movie not found`
+            );
+        };
+        
+        // On cherche par rapport à l'id du 
+        const filter = {
+            movieId: {
+                $in: movieFound._id,
+            },
+        };
+
+        const [marks, total] = await Promise.all([
+            Mark.find(filter)
+            .select("")
+            .sort({ createdAt: -1})
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .lean(),
+            Mark.countDocuments(filter),
+        ]);
+
+        return res.status(200).json({
+            data: marks,
 
             pagination: {
                 page,

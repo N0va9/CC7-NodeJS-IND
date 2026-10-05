@@ -94,7 +94,7 @@ artistController.publicGetAll = async (req, res, next )=> {
 
 
 
-artistController.publicGetAllMoviesRealised = async (req, res, next)=> {
+artistController.getAllMoviesRealised = async (req, res, next)=> {
     try {
         // Pagination
         const page = Math.max(Number.parseInt(req.query.page, 10) || 1, 1);
@@ -131,12 +131,6 @@ artistController.publicGetAllMoviesRealised = async (req, res, next)=> {
 
         }
 
-        // Affiche tous les champs selon le rôle de l'utilisateur
-        let selectFields = "";
-        if(req?.auth?.role === "USER") {
-            selectFields = "-_id -__v -createdAt -updatedAt -countries"
-        }
-
         const filter = {
             _id: {
                 $in: artistFound.movieIds,
@@ -145,7 +139,7 @@ artistController.publicGetAllMoviesRealised = async (req, res, next)=> {
 
         const [movies, total] = await Promise.all([
             Movie.find(filter)
-            .select(selectFields)
+            .select("")
             .sort({ createdAt: -1})
             .skip((page - 1) * limit)
             .limit(limit)
