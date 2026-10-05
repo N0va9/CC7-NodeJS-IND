@@ -448,7 +448,7 @@ paths:
     post: 
       tags:
         - Countries
-      summary: Create  a country
+      summary: Create a country
       operationId: createCountry
       requestBody:
         required: true
@@ -1237,7 +1237,7 @@ components:
         - year 
         - genre
         - resume
-        - country
+        - countries
       properties:
         title:
           type: string
@@ -1257,10 +1257,13 @@ components:
           type: string
           minLength: 2
           example: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice."
-        country:
-          type: string
-          minLength: 2
-          example: "US"
+        countries:
+          type: array
+          items:
+            type: string
+          example:
+          - id1
+          - id2
       
     UpdateMovieInput:
       type: object
@@ -1288,10 +1291,13 @@ components:
           type: string
           minLength: 2
           example: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice."
-        country:
-          type: string
-          minLength: 2
-          example: "US"
+        countries:
+          type: array
+          items:
+            type: string
+          example:
+          - id1
+          - id2
 
 # NETIZENS
     CreateNetizenInput:

@@ -15,19 +15,56 @@ const movieSchema = new mongoose.Schema (
         },
         genre: { type: String, required: true },
         resume : { type: String, required: true},
-        country: {
-            type: String,
-            ref: 'Country',
-            required: true,
-            index: true,
-            validate: { // Vérification que le code du pays est enregistré et valide
-                validator: async function (country) {
+        countries: {
+            type: [
+                {
+                    type: String,
+                    ref: 'Country',
+                    index: true,
+                }
+            ],
+            required:true,
+            set: function (ids) { // Pour empêcher d'enregistrer plusieurs fois le même countryCode dans la liste countries
+                if (!Array.isArray(ids)) {
+                    return ids;
+                }
+
+                // On retire les doublons au cas où 
+                const uniqueCodes = [
+                    ...new Set(ids.map((id) => id.toString())),
+                ]
+
+                return uniqueCodes;
+            },
+            validate: { // Vérification que l'id du pays est enregistré et valide
+                validator: async function (ids) {
+                    // On veut au moins un pays, pas de liste vide
+                    if(!Array.isArray(ids) || ids.length === 0) {
+                        return false;
+                    }
                     const Country = mongoose.model("Country");
-                    return await Country.exists({ _id: country }) !== null;
+
+                    // On retire les doublons au cas où 
+                    const uniqueCodes = [
+                        ...new Set(ids.map((id) => id.toString())),
+                    ]
+
+                    // On compte le nombre de pays trouvés avec ces ids
+                    const found = await Country.countDocuments(
+                        { _id: {
+                            $in:uniqueCodes,
+                            },
+                        }
+                    );
+
+                    return found === uniqueCodes.length; // Vérification qu'on a le même nombre d'Ids trouvés
                 },
-                message: "This country code isn't valid. Please choose a good one."
+                message: "At least one countryCode is wrong or you forget to put one, please check."
             }
         }
+
+
+
     },
     {timestamps : true } // created et updated at
 )

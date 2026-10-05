@@ -24,7 +24,7 @@ const artistSchema = new mongoose.Schema (
                 }
             ],
             required:true,
-            set: function (ids) { // Pour empêcher d'enregistrer plisieurs fois le même id dans la liste ids
+            set: function (ids) { // Pour empêcher d'enregistrer plusieurs fois le même id dans la liste ids
                 if (!Array.isArray(ids)) {
                     return ids;
                 }
@@ -56,7 +56,7 @@ const artistSchema = new mongoose.Schema (
                 },
                 message: "At least one movieId is wrong, please check."
             }
-    }
+        }
     },
     { timestamps: true } // Created at and updated at
 )
