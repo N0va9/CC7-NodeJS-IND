@@ -677,7 +677,55 @@ paths:
         
         "500": 
           $ref: "#/components/responses/InternalServerError"
-    
+
+  /api-movies/movies/public:
+    get: 
+      tags:
+        - Movies
+      summary: Retrieve all movies (public datas)
+      operationId: publicGetMovies
+      parameters:
+      - in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        description: Search by title or genre
+      - in: query
+        name: year
+        required: false
+        schema:
+          type: integer
+        description: Search by release year
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        description: Number of pages
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 10
+          maximum: 100
+        description: Limit of the output     
+      responses: 
+        "200":
+          description: All movies has been retrived  
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PublicMovie"
+
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
 
 # MARK
   /api-movies/marks:
@@ -1179,6 +1227,37 @@ components:
           minLength: 2
           example: "US"
 
+    PublicMovie:
+      type: object
+      required:
+        - title
+        - year 
+        - genre
+        - resume
+        - country
+      properties:
+        title:
+          type: string
+          minLength: 2
+          example: "The Dark Knight"
+        year:
+          type: integer
+          format: int32
+          minimum: 1900
+          maximum: 2100
+          example: 2008
+        genre:
+          type: string
+          minLength: 2
+          example: "Action, Crime, Drama"
+        resume:
+          type: string
+          minLength: 2
+          example: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice."
+        country:
+          type: string
+          minLength: 2
+          example: "US"
 # NETIZENS
     CreateNetizenInput:
       type: object

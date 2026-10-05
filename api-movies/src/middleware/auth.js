@@ -12,8 +12,10 @@ function verifyToken(req, res, next) {
         );
     }
 
+    // Récupération du token
     const token = header.split(" ")[1];
 
+    // Vérification du token
     try {
         const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET); // Rejette les tokens manquants, invalides ou expirés avant d'exécuter une route protégée.
         req.auth = {

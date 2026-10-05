@@ -3,6 +3,9 @@ const verifyToken = require("../middleware/auth");
 const authorizeNetizenRoles = require("../middleware/authorizeNetizenRoles");
 const movieController = require('../controllers/movieController');
 
+// Routes publiques
+router.get('/public', movieController.publicGetAll);
+
 // Routes protégées
 router.get('/', verifyToken, authorizeNetizenRoles("ADMIN"), movieController.getAll);
 router.get('/:id', verifyToken, authorizeNetizenRoles("ADMIN"), movieController.getOne);
