@@ -3,6 +3,9 @@ const verifyToken = require("../middleware/auth");
 const authorizeNetizenRoles = require("../middleware/authorizeNetizenRoles");
 const artistController = require('../controllers/artistController');
 
+// Routes publiques (nécessite tout de même l'authentification)
+router.get('/all', verifyToken, authorizeNetizenRoles("USER", "ADMIN"), artistController.publicGetAll);
+
 // Routes protégées
 router.get('/', verifyToken, authorizeNetizenRoles("ADMIN"), artistController.getAll);
 router.get('/:id', verifyToken, authorizeNetizenRoles("ADMIN"), artistController.getOne);

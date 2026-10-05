@@ -359,7 +359,65 @@ paths:
         
         "500": 
           $ref: "#/components/responses/InternalServerError"
-    
+
+  /api-movies/artists/all:
+    get: 
+      tags:
+        - Artists
+      summary: Retrieve all artists (public datas)
+      operationId: publicGetArtists
+      parameters:
+      - in: query
+        name: search
+        required: false
+        schema:
+          default: "Cameron"
+          type: string
+        description: Search by firstName or lastName
+      - in: query
+        name: realisators
+        required: false
+        schema:
+          type: string
+          default: "all"
+        description: | 
+          yes -> Get all the realisators<br>
+          no -> Get all the no-realisators<br>
+          all -> Get all the artists (realisators or not)
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+        description: Number of pages
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 10
+          maximum: 100
+        description: Limit of the output
+      security:
+        - oauth2Password: [] 
+      responses: 
+        "200":
+          description: All artists has been retrived  
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Artist"
+
+        "500": 
+          $ref: "#/components/responses/InternalServerError"
+
+
+
 # COUNTRIES
   /api-movies/countries:
     get: 
@@ -724,7 +782,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/PublicMovie"
+                  $ref: "#/components/schemas/Movie"
 
         "500": 
           $ref: "#/components/responses/InternalServerError"
@@ -1093,9 +1151,8 @@ components:
           maximum: 2100
           example: 1954
         movieId:
-          description: The movie ID directed by the artist (optional)
           type: string
-          example: "6abf9cc61fea465d82e005b8"
+          example: "optional"
       
     UpdateArtistInput:
       type: object
@@ -1229,37 +1286,6 @@ components:
           minLength: 2
           example: "US"
 
-    PublicMovie:
-      type: object
-      required:
-        - title
-        - year 
-        - genre
-        - resume
-        - country
-      properties:
-        title:
-          type: string
-          minLength: 2
-          example: "The Dark Knight"
-        year:
-          type: integer
-          format: int32
-          minimum: 1900
-          maximum: 2100
-          example: 2008
-        genre:
-          type: string
-          minLength: 2
-          example: "Action, Crime, Drama"
-        resume:
-          type: string
-          minLength: 2
-          example: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice."
-        country:
-          type: string
-          minLength: 2
-          example: "US"
 # NETIZENS
     CreateNetizenInput:
       type: object
