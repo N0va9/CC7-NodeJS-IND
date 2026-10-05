@@ -16,9 +16,8 @@ function verifyToken(req, res, next) {
 
     try {
         const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET); // Rejette les tokens manquants, invalides ou expirés avant d'exécuter une route protégée.
-
         req.auth = {
-            netizenId: payload.sub,
+            netizenId: payload.id,
             role: payload.role,
         };
 

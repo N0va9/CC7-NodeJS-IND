@@ -45,6 +45,10 @@ paths:
                   $ref: "#/components/schemas/Netizen"
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
+          
         "500": 
           $ref: "#/components/responses/InternalServerError"
     
@@ -123,6 +127,9 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
 
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
         
@@ -155,6 +162,9 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
 
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
         
@@ -180,6 +190,9 @@ paths:
 
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -208,6 +221,9 @@ paths:
                   $ref: "#/components/schemas/Artist"
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "500": 
           $ref: "#/components/responses/InternalServerError"
@@ -238,6 +254,9 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
 
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
         "409": 
           $ref: "#/components/responses/Conflict"
         
@@ -267,6 +286,9 @@ paths:
 
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -300,6 +322,9 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
 
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
         
@@ -325,6 +350,9 @@ paths:
 
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -352,6 +380,9 @@ paths:
                   $ref: "#/components/schemas/Country"
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "500": 
           $ref: "#/components/responses/InternalServerError"
@@ -382,6 +413,9 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
 
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
         "409": 
           $ref: "#/components/responses/Conflict"
         
@@ -411,6 +445,9 @@ paths:
 
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -444,6 +481,9 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
 
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
         
@@ -469,6 +509,9 @@ paths:
 
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -496,6 +539,9 @@ paths:
                   $ref: "#/components/schemas/Movie"
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "500": 
           $ref: "#/components/responses/InternalServerError"
@@ -526,6 +572,9 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
 
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
         "409": 
           $ref: "#/components/responses/Conflict"
         
@@ -555,6 +604,9 @@ paths:
 
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -588,6 +640,9 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
 
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
         
@@ -613,6 +668,9 @@ paths:
 
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -641,6 +699,9 @@ paths:
                   $ref: "#/components/schemas/Mark"
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "500": 
           $ref: "#/components/responses/InternalServerError"
@@ -671,6 +732,9 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
 
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
         "409": 
           $ref: "#/components/responses/Conflict"
         
@@ -700,6 +764,9 @@ paths:
 
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -733,6 +800,9 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
 
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
         
@@ -758,6 +828,9 @@ paths:
 
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -786,6 +859,9 @@ paths:
 
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "500": 
           $ref: "#/components/responses/InternalServerError"
@@ -816,6 +892,9 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
 
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
         "409": 
           $ref: "#/components/responses/Conflict"
         
@@ -845,6 +924,9 @@ paths:
 
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
@@ -878,6 +960,9 @@ paths:
         "401":
           $ref: "#/components/responses/Unauthorized"
 
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
         "404": 
           $ref: "#/components/responses/ResourceNotFound"
         
@@ -903,6 +988,9 @@ paths:
 
         "401":
           $ref: "#/components/responses/Unauthorized"
+
+        "403":
+          $ref: "#/components/responses/Forbidden"
 
         "404": 
           $ref: "#/components/responses/ResourceNotFound"

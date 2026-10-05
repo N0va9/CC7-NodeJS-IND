@@ -22,7 +22,7 @@ const netizenSchema = new mongoose.Schema (
                 message: 'birthYear must be an integer.' // Nous forçons ici un nombre entier
             }
         },
-        role : { type: String, enum:['user', 'admin'], default: 'user' },
+        role : { type: String, enum:['USER', 'ADMIN'], default: 'USER' },
 
     },
     { timestamps: true } // Created at and updated at
