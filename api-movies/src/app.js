@@ -37,6 +37,7 @@ app.use("/api-movies/movies", movieRouter);
 app.use("/api-movies/netizens", netizenRouter);
 app.use("/api-movies/marks", markRouter);
 app.use("/api-movies/roles", roleRouter);
+
 app.use('/api-movies/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 

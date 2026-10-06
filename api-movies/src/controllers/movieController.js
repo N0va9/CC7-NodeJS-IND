@@ -6,7 +6,8 @@ const escapeRegex = require('../utils/utils');
 const AppError = require("../errors/AppError");
 const Artist = require('../models/Artist');
 const Role = require('../models/Role');
-
+const path = require('path');
+const fs = require("fs").promises;
 
 const movieController = makeCrudController({
     repository: movieRepository,
@@ -199,6 +200,77 @@ movieController.getDetails = async (req, res, next)=> {
     }
 };
 
+movieController.addFile = async (req, res, next) => {
+    try {
+        const movieId = req.params.id;
 
+        if (!req.file) { // On vérifie qu'on récupère bien le fichier
+            throw new AppError(
+                400,
+                `BAD_REQUEST`,
+                `No data file`
+            ); 
+        }
+
+        // Sauvegarde de l'état actuel du film (pour supprimer l'ancienne affiche si présente)
+        const oldMovie = await Movie.findById(movieId).select("file").lean();
+        const oldFileURL = oldMovie?.file?.url;
+
+        // On retrouve le film dans la base et on le met à jour en ajoutant la nouvelle affiche
+        const actualMovie = await Movie.findByIdAndUpdate(
+            movieId,
+            {
+                $set: {
+                    file: {
+                        url: `uploads/resumeDocuments/${req.file.filename}`,
+                        originalName: req.file.originalname,
+                        mimeType: req.file.mimetype,
+                        size: req.file.size,
+                    },
+                },
+            },
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
+
+        // On supprime l'ancien fichier s'il y en a un
+        if (oldFileURL) {
+            const oldFileFullPath = path.join(
+                __dirname,
+                "../..",
+                oldFileURL
+            );
+
+            fs.unlink(oldFileFullPath, (err) => {
+                if (err) {
+                    console.error("Error while deleting old file", err);
+                }
+                else {
+                    console.log("Old file deleted");
+                }
+            })
+        }
+
+        if (!actualMovie) {
+            throw new AppError(
+                404,
+                `MOVIE_NOT_FOUND`,
+                `Movie not found`
+            ); 
+        }
+
+        // Envoi du résultat
+        res.status(200).json({
+            message: "File added to this movie",
+            data: actualMovie,
+        });
+
+
+    } catch (err) {
+        next(err);
+    }
+}
 
 module.exports = movieController;

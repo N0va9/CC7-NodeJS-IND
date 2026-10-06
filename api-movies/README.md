@@ -32,5 +32,5 @@ express swagger-ui-express swagger-jsdoc
 mongoose-to-swagger
 bcrypt
 jsonwebtoken
-
+multer
 Utilisation de l'API RestCountries pour récupérer les codes, langues et pays dans le monde

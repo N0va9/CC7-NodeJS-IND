@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const fileSchema = require("./otherSchemas/File");
 
 const movieSchema = new mongoose.Schema (
     {
@@ -61,10 +62,9 @@ const movieSchema = new mongoose.Schema (
                 },
                 message: "At least one countryCode is wrong or you forget to put one, please check."
             }
-        }
-
-
-
+        },
+        // Ajout d'un document
+        file: { type: fileSchema, required: false },
     },
     {timestamps : true } // created et updated at
 )
