@@ -1,6 +1,6 @@
 const AppError = require("../errors/AppError");
 const makeCrudController = ({ repository, resourceName = 'resource'}) => ({
-    async create(req, res, next) { //TODO MAJ message creation selon la ressource
+    async create(req, res, next) {
         try {
             const item = await repository.create(req.body);
             let entityName = item.name || item.title ||item.firstName + ' ' + item.lastName;

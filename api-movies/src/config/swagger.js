@@ -23,7 +23,7 @@ const models = {
     Role
 }
 
-const schemas = Object.fromEntries( // TODO Netizen password? ou 2 représentations (une publique et une privée)
+const schemas = Object.fromEntries( 
     Object.entries(models).map(([name, model]) => [
         name, 
         mongooseToSwagger(model, {
