@@ -243,7 +243,7 @@ movieController.addFile = async (req, res, next) => {
                 oldFileURL
             );
 
-            fs.unlink(oldFileFullPath, (err) => {
+            await fs.unlink(oldFileFullPath, (err) => {
                 if (err) {
                     console.error("Error while deleting old file", err);
                 }

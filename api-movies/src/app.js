@@ -19,6 +19,7 @@ const swaggerUi = require("swagger-ui-express");
 // Permet de créer un objet représentant mon serveur web
 // On va pouvoir définir nos routes, middleware, et contrôler comment notre serveur répond aux requêtes
 const app = express();
+app.disable("x-powered-by");
 
 app.use(express.json()); // Transforme le body JSON de la requête en objet JavaScript
 app.use(express.urlencoded({ extended: false })) // Identifiants en formulaire
